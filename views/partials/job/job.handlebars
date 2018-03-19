@@ -1,0 +1,30 @@
+<a class="list-group-item list-group-item-action" id="list-home-list" 
+	data-toggle="list" href="#list-home" role="tab" aria-controls="home">
+	
+	<div class="job container">
+		<div class="row">
+			<div class="col-8">
+				<h4>{{job.title}}</h4>
+			</div>
+			<div class="col-3 right">
+				<button class="job-link-btn" data-link="{{job.link}}">External link</button>
+				<button class="job-notes-btn" data-id="{{job._id}}">Notes</button>
+			</div>
+ 			<div class="col-1 right">
+			    <button type="button" class="remove-btn" data-id="{{job._id}}">
+          			<i class="fa fa-close" style="font-size:20px;color:white"></i>
+          		</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-7 job-info">
+				<span>{{job.company}}</span><br>
+				<span>{{job.location}}</span>
+			</div>
+			<div class="col-4 job-info right">
+				<span class="date">Posted: {{job.posted_date}}</span>
+			</div>
+		</div>
+	</div>
+
+</a>

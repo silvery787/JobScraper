@@ -1,0 +1,62 @@
+{{#if error}}
+	<div>ERROR: {{error}}</div>
+{{/if}}
+{{#if jobs}}
+	<h2>Saved Jobs</h2>
+	<div class="job-list list-group" id="list-tab" role="tablist">
+	{{!-- <div id="jobs-list" class="cl-jobs-list"> --}}
+	{{#each jobs}}
+    	{{> job/job job=this}}
+	{{/each}}
+    </div>
+{{else}}
+	<h3>We don't have any saved jobs yet</h3>	    
+{{/if}}
+
+<div id="job-modal" class="modal fade modal-lg" role="dialog">
+	<div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+         		<h4 class="modal-title" id="job_title"></h4>
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+			</div>
+       		
+       		<div class="modal-body" id="job_content">
+       			<div id="saved-notes" class="list-group">  </div>
+				<form>
+					<div class="form-group">
+						<textarea class="form-control" id="new-note-txt" rows="3" placeholder="New Note"></textarea>
+						<button type="button" id="add-note" class="btn">Add New Note</button>
+					</div>
+				</form>       			
+			</div>
+			<div class="modal-footer">
+	         	<button type="button" class="btn btn-close btn-outline-secondary" data-dismiss="modal">
+	         		Close
+	         	</button>
+			</div>
+     	</div>
+	</div>
+</div>
+
+
+<div id="scrape-modal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+			</div>
+       		<div class="modal-body" id="scrape_result"></div>			
+			<div class="modal-footer">
+	         	<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+	         		Close
+	         	</button>
+			</div>
+     	</div>
+	</div>
+</div>
