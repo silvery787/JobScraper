@@ -25,10 +25,10 @@ app.set("view engine", "handlebars");
 require("./routes/api.js")(app);
 require("./routes/view.js")(app);
 
-// app.use("./controllers/fetch.js");
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoHeadlines").then(function(){
+mongoose.connect(MONGODB_URI).then(function(){
 	app.listen(PORT, function(){
 		console.log("Listening on port %s", PORT);
 	});	
