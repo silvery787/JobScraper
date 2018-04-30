@@ -1,5 +1,5 @@
-var axios = require("axios");
-var cheerio = require("cheerio");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 function ScrapeData() {
 
@@ -7,45 +7,46 @@ function ScrapeData() {
     
     axios.get("https://www.monster.com/jobs/search/?q=Javascript-Developer&where=bay-area__2CCalifornia&sort=dt.rv.di")
       .then(function(response) {
-        var $ = cheerio.load(response.data);
+        let $ = cheerio.load(response.data);
 
-        var result_arr = [];
-        $(".js_result_details").each(function(i, element) {
-          var result = {};
-          result.post_id = $(this)
-            .children('.js_result_details-left')
-            .children(".jobTitle").children("h2").children("a")
-            .attr('data-m_impr_j_postingid');
-          result.title = $(this)
-            .children('.js_result_details-left')
-            .children(".jobTitle").children("h2").children("a")
-            .text();
-          result.link = $(this)
-            .children('.js_result_details-left')
-            .children(".jobTitle").children("h2").children("a")
-            .attr("href");
-          result.company = $(this)
-            .children('.js_result_details-left')
-            .children(".company").children("a")
-            .text();
-          result.location = $(this)
-            .children('.js_result_details-left')
-            .children(".job-specs-location").children("p").children("a")
-            .text();
+        let result_arr = [];
+        $(".card-content").each(function(i, element) {
+          let result = {};
+          let id = $(this).attr('data-jobid');
 
-          result.posted_date = $(this)
-            .children('.job-specs-date').children("p").children("time")
-            .attr("datetime");
+          if( id ){
+            result.post_id = id;
 
-          // console.log(result);
-          result_arr.push(result);
+            result.title = $(this)
+              .children('.flex-row').children('.summary').children('header')
+              .children('h2.title').children('a')
+              .text();
+            result.link = $(this)
+              .children('.flex-row').children('.summary').children('header')
+              .children('h2.title').children('a')
+              .attr("href");
+            result.company = $(this)
+              .children('.flex-row').children('.summary').children('.company')
+              .children('span.name')
+              .text();
+            result.location = $(this)
+              .children('.flex-row').children('.summary').children('.location')
+              .children('span.name')
+              .text();
+
+            result.posted_date = $(this)
+              .children('.flex-row').children('.meta').children('time')
+              .attr('datetime');
+
+            console.log(result);
+            result_arr.push(result);
+          }//if id
         });        
         resolve(result_arr);
       })
       .catch(function(error){
         reject(error);
       });
-
   });
 
 }
